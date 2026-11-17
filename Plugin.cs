@@ -33,19 +33,19 @@ namespace ZZPerf
         public override void Load()
         {
             L = Log; cfg = Config; cfgPath = Config.ConfigFilePath;
-            cEnabled = Config.Bind("General", "Enabled", true, "전체 켜기와 끄기. 게임 중에 바꿔도 2초 안에 반영된다.");
-            cHostOnly = Config.Bind("General", "OnlyWhenHosting", true, "방을 호스트하는 동안에만 동작한다.");
-            cStats = Config.Bind("General", "LogStats", false, "30초마다 동작 횟수를 BepInEx 로그에 남긴다.");
-            cLight = Config.Bind("Light", "UseRegisteredLights", true, "조명 목록을 장면 전체 검색 대신 URP의 등록 목록에서 가져온다.");
-            cWaterMs = Config.Bind("Water", "PurgeMinIntervalMs", 250, "물 타일 캐시 정리의 최소 간격(ms). 0이면 원래 동작.");
-            cSort = Config.Bind("Sorting", "CullOffscreenChunks", true, "호스트 화면 밖 청크의 지형 물체 SortingGroup을 꺼 둔다.");
-            cSortMargin = Config.Bind("Sorting", "MarginUnits", 48f, "화면 가장자리에서 이 거리 안의 청크는 켜 둔다.");
-            cSortDelay = Config.Bind("Sorting", "DelaySeconds", 1f, "청크가 화면 밖에 이 시간만큼 머문 뒤에 끈다.");
-            cSortBudgetMs = Config.Bind("Sorting", "BudgetMs", 1f, "0.1초마다 끄는 작업에 쓰는 시간 상한(ms).");
-            cFarInterval = Config.Bind("FarChunks", "UpdateInterval", 1, "모든 플레이어에게서 먼 청크의 물체를 몇 프레임에 한 번 갱신할지. 1이면 원래 동작. 2 이상은 손님이 보는 결과가 달라질 수 있다.");
-            cFarDistance = Config.Bind("FarChunks", "Distance", 150f, "이 거리보다 먼 청크를 먼 청크로 본다. 게임 기본값은 150, 64보다 작게는 적용하지 않는다.");
-            cNearby = Config.Bind("NearbyItems", "CacheSearch", true, "근처 물품 창이 매 프레임 장면 전체에서 물 우물과 컨테이너를 찾는 검색을, 생성될 때 기록해 둔 목록으로 대신한다. 창을 열 때는 원래 검색을 한 번 돌려 목록을 맞춘다.");
-            cNearResync = Config.Bind("NearbyItems", "ResyncSeconds", 30f, "창이 열려 있는 동안 이 간격마다 원래 검색을 한 번 돌려 목록을 맞춘다. 0이면 창을 열 때만 맞춘다.");
+            cEnabled = Config.Bind("General", "Enabled", true, "Turns the whole plugin on or off. Changes take effect within 2 seconds, even mid-game.");
+            cHostOnly = Config.Bind("General", "OnlyWhenHosting", true, "Runs only while you host a room.");
+            cStats = Config.Bind("General", "LogStats", false, "Writes activity counts to the BepInEx log every 30 seconds.");
+            cLight = Config.Bind("Light", "UseRegisteredLights", true, "Gets the light list from URP's registered lights instead of searching the whole scene.");
+            cWaterMs = Config.Bind("Water", "PurgeMinIntervalMs", 250, "Minimum interval between water tile cache purges in ms. 0 keeps the original behavior.");
+            cSort = Config.Bind("Sorting", "CullOffscreenChunks", true, "Disables SortingGroup on terrain objects in chunks outside the host's view.");
+            cSortMargin = Config.Bind("Sorting", "MarginUnits", 48f, "Chunks within this distance of the screen edge stay enabled.");
+            cSortDelay = Config.Bind("Sorting", "DelaySeconds", 1f, "A chunk is disabled after staying offscreen this long.");
+            cSortBudgetMs = Config.Bind("Sorting", "BudgetMs", 1f, "Time budget in ms for disabling work, run every 0.1 seconds.");
+            cFarInterval = Config.Bind("FarChunks", "UpdateInterval", 1, "Update objects in chunks far from every player once every N frames. 1 keeps the original behavior. 2 or more can change what guests see.");
+            cFarDistance = Config.Bind("FarChunks", "Distance", 150f, "Chunks farther than this from every player count as far. The game default is 150. Values below 64 are not applied.");
+            cNearby = Config.Bind("NearbyItems", "CacheSearch", true, "Replaces the per-frame whole-scene search for water wells and containers in the nearby items panel with a list recorded when they are created. The original search runs once when the panel opens to resync the list.");
+            cNearResync = Config.Bind("NearbyItems", "ResyncSeconds", 30f, "While the panel is open, run the original search at this interval to resync the list. 0 resyncs only when the panel opens.");
             try { cfgStamp = File.GetLastWriteTimeUtc(cfgPath); } catch { }
 
             var h = new Harmony("local.zzperf");
