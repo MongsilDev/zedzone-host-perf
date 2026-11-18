@@ -19,7 +19,7 @@ A second run of the same test averaged 20.5 ms with every feature on. Turning of
 - Offscreen sorting off: average frame time rises from 20.5 ms to 30.8 ms.
 - Nearby items search off: frames over 100 ms per minute go from 2 to 86.
 - Light list off: frames over 33 ms per minute go from 6 to 92.
-- Water cache purge off: while chunks are loading, average frame time rises from 23 to 25 ms to 31 to 33 ms.
+- Water cache purge off: while chunks are loading, average frame time rises from about 24 ms to about 32 ms.
 
 In a real session with 7 players connected, the earlier version 0.2.2 lowered the average frame time from 40.9 ms to 35.3 ms and cut frames over 33 ms in three minutes from 1151 to 626.
 
