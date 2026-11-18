@@ -25,8 +25,8 @@ In a real session with 7 players, the older version 0.2.2 lowered the average fr
 
 ## Installation
 
-1. Subscribe to [ZED ZONE code mod loader](https://steamcommunity.com/sharedfiles/filedetails/?id=3834614258). If the main menu already shows "ZED MODS" in the top-left corner, you're set. If not, do the one-time setup on the loader page.
-2. Subscribe to Host Lag Reduction on the Steam Workshop.
+1. Subscribe to [ZED ZONE code mod loader](https://steamcommunity.com/sharedfiles/filedetails/?id=3834614258). If a "ZED MODS" box appears in the top-left corner of the main menu for a few seconds after the game starts, you're set. If not, do the one-time setup on the loader page.
+2. Subscribe to [Host Lag Reduction](https://steamcommunity.com/sharedfiles/filedetails/?id=3841749636) on the Steam Workshop.
 3. Start the game through Steam, or restart it if it's open, and host a room.
 
 To use a DLL you built yourself, skip step 2 and put `ZZPerf.dll` in `ZED ZONE\Mods\ZZPerf\`.
