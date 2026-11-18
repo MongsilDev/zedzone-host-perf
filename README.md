@@ -51,31 +51,24 @@ The config file is `ZED ZONE\BepInEx\config\local.zzperf.cfg`. Changes are picke
 
 ## Measured results
 
-Version 0.4.0, test world with 7 simulated players spread out and the nearby items panel open, 60 second windows measured inside the game. Each state was measured twice in mirrored order, and the table shows the range of the two.
+Test world, 7 simulated players spread out, nearby items panel open, version 0.4.0.
 
-Turning one feature on at a time, starting from `Enabled = false`:
+| | Without ZZPerf | With ZZPerf |
+|---|---|---|
+| Average frame time | 30 to 33 ms | 17.4 ms |
+| Frames over 33 ms per minute | 132 to 185 | 4 |
+| Frames over 100 ms per minute | 61 to 67 | 2 |
 
-| State | Average frame time | Frames over 33 ms per minute | Frames over 100 ms per minute |
-|---|---|---|---|
-| `Enabled = false` | 30.13 to 33.02 ms | 132 to 185 | 61 to 67 |
-| Plugin on, every feature off | 31.35 to 31.39 ms | 134 to 151 | 64 |
-| Light list only | 28.73 to 31.32 ms | 75 to 117 | 64 to 70 |
-| Offscreen sorting only | 21.04 to 22.72 ms | 168 to 181 | 88 to 96 |
-| Nearby items search only | 27.61 to 28.47 ms | 86 to 89 | 1 to 2 |
-| All on (default) | 17.39 to 17.47 ms | 4 | 2 |
+What gets worse when you turn off a single feature, measured separately with everything on at 20.5 ms:
 
-Turning one feature off at a time from the default settings:
+- Offscreen sorting off: average frame time rises from 20.5 ms to 30.8 ms.
+- Nearby items search off: frames over 100 ms per minute go from 2 to 86.
+- Light list off: frames over 33 ms per minute go from 6 to 92.
+- Water cache purge off: while chunks are loading, average frame time rises from 23 to 25 ms to 31 to 33 ms.
 
-| State | Average frame time | Frames over 33 ms per minute | Frames over 100 ms per minute |
-|---|---|---|---|
-| All on (default) | 20.43 to 20.54 ms | 5.5 to 6 | 2 to 2.2 |
-| Light list off | 21.69 to 21.98 ms | 92 | 2 to 3 |
-| Offscreen sorting off | 30.82 to 30.83 ms | 170 to 185 | 3 to 5.5 |
-| Nearby items search off | 23.18 to 23.30 ms | 89 | 86 |
+In a real session with 7 players connected, the earlier version 0.2.2 lowered the average frame time from 40.9 ms to 35.3 ms and cut frames over 33 ms in three minutes from 1151 to 626.
 
-The water cache purge only matters while new chunks are loading. In 45 second windows right after the 7 simulated players spread out, with the other features on, turning it off raised the average from 23.32 to 24.86 ms to 31.09 to 33.07 ms, and frames over 33 ms per minute from 181 to 247 to 708 to 803.
-
-In a real session with 7 players connected, version 0.2.2 without the nearby items search, alternating three 60 second windows each, the average frame time went from 40.85 ms to 35.28 ms and frames over 33 ms went from 1151 to 626.
+Each state was measured twice for 60 seconds inside the game, in mirrored order.
 
 ## Game version
 
