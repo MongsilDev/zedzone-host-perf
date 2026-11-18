@@ -97,3 +97,7 @@ dotnet build -c Release -p:GameRoot="D:\SteamLibrary\steamapps\common\ZED ZONE"
 ```
 
 `GameRoot` defaults to `C:\Program Files (x86)\Steam\steamapps\common\ZED ZONE\`. The output is `bin\ZZPerf.dll`.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
