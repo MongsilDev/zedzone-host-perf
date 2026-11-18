@@ -1,12 +1,12 @@
 # ZED ZONE Host Lag Reduction
 
-Cuts lag and stutter for the host of a ZED ZONE multiplayer room, especially when players spread out across the map. The plugin's DLL and config file are named ZZPerf.
+Cuts lag and stutter for the host of a ZED ZONE multiplayer room, especially when players spread out across the map. In file names and logs the mod is called ZZPerf.
 
-Only the host needs it. It does nothing in single player or when you join someone else's room, and guests do not need to install anything.
+Host only. Guests don't need to install anything, and the mod does nothing in single player or when you join someone else's room.
 
 ## Measured results
 
-Test world, 7 simulated players spread out, nearby items panel open, version 0.4.0.
+Test world with 7 simulated players spread out and the nearby items panel open, version 0.4.0. Each setup was measured twice for 60 seconds, in ABBA order.
 
 | | Without ZZPerf | With ZZPerf |
 |---|---|---|
@@ -14,25 +14,22 @@ Test world, 7 simulated players spread out, nearby items panel open, version 0.4
 | Frames over 33 ms per minute | 132 to 185 | 4 |
 | Frames over 100 ms per minute | 61 to 67 | 2 |
 
-A second run of the same test averaged 20.5 ms with every feature on. Turning off one feature at a time from there:
+A second run of the same test averaged 20.5 ms with every feature on. Then each feature was turned off on its own:
 
 - Offscreen sorting off: average frame time rises from 20.5 ms to 30.8 ms.
 - Nearby items search off: frames over 100 ms per minute go from 2 to 86.
 - Light list off: frames over 33 ms per minute go from 6 to 92.
 - Water cache purge off: while chunks are loading, average frame time rises from about 24 ms to about 32 ms.
 
-In a real session with 7 players connected, the earlier version 0.2.2 lowered the average frame time from 40.9 ms to 35.3 ms and cut frames over 33 ms in three minutes from 1151 to 626.
-
-Each state was measured twice for 60 seconds inside the game, in mirrored order.
+In a real session with 7 players, the older version 0.2.2 lowered the average frame time from 40.9 ms to 35.3 ms and cut frames over 33 ms per minute from 1151 to 626, averaged over three 60-second runs of each.
 
 ## Installation
 
-1. Close the game.
-2. Subscribe to [ZED ZONE code mod loader](https://steamcommunity.com/sharedfiles/filedetails/?id=3834614258) and run `install.cmd` in its Workshop folder once. This installs BepInEx 6 IL2CPP.
-3. Subscribe to Host Lag Reduction on the Steam Workshop. The loader picks up code mods from subscribed Workshop items.
-4. Start the game through Steam and host a room.
+1. Subscribe to [ZED ZONE code mod loader](https://steamcommunity.com/sharedfiles/filedetails/?id=3834614258). If the main menu already shows "ZED MODS" in the top-left corner, you're set. If not, do the one-time setup on the loader page.
+2. Subscribe to Host Lag Reduction on the Steam Workshop.
+3. Start the game through Steam, or restart it if it's open, and host a room.
 
-To install a DLL you built yourself instead, put `ZZPerf.dll` in `ZED ZONE\Mods\ZZPerf\`.
+To use a DLL you built yourself, skip step 2 and put `ZZPerf.dll` in `ZED ZONE\Mods\ZZPerf\`.
 
 ## Features
 
@@ -40,8 +37,8 @@ To install a DLL you built yourself instead, put `ZZPerf.dll` in `ZED ZONE\Mods\
 |---|---|---|---|---|
 | Offscreen sorting | `CullOffscreenChunks` | On | Cuts the biggest share of host lag when players are spread across the map. | None |
 | Nearby items search | `CacheSearch` | On | Removes the long freezes while the nearby items panel is open. | None |
-| Light list | `UseRegisteredLights` | On | Fewer stutter spikes from light and shadow updates. | None |
-| Water cache purge | `PurgeMinIntervalMs` | On | Smoother loading when players move into new areas. | None |
+| Light list | `UseRegisteredLights` | On | Reduces stutter spikes from light and shadow updates. | None |
+| Water cache purge | `PurgeMinIntervalMs` | On | Makes loading smoother when players move into new areas. | None |
 | Far chunk interval | `UpdateInterval` | Off | Updates distant parts of the map less often. | Possible |
 
 Each feature is turned on or off with its key in the config file. `PurgeMinIntervalMs = 0` turns the water cache purge off, and `UpdateInterval = 2` or more turns the far chunk interval on.
@@ -58,7 +55,7 @@ Guest impact was judged by reading the game code. The four features that are on 
 
 ## Configuration
 
-The config file is `ZED ZONE\BepInEx\config\local.zzperf.cfg` and is created on first launch. Changes are picked up within 2 seconds while the game is running.
+The config file is `ZED ZONE\BepInEx\config\local.zzperf.cfg` and is created on first launch. Changes apply within 2 seconds without a restart.
 
 | Section | Key | Default | Description |
 |---|---|---|---|
@@ -71,7 +68,7 @@ The config file is `ZED ZONE\BepInEx\config\local.zzperf.cfg` and is created on 
 | NearbyItems | `ResyncSeconds` | 30 | How often to resync with the original search while the panel is open. 0 resyncs only when the panel opens. |
 | FarChunks | `Distance` | 150 | Chunks farther than this from every player count as far. Values below 64 are not applied. |
 
-To check that it is running, look for `ZZPerf loaded` in the BepInEx log, or set `LogStats = true` to get a `stats` line every 30 seconds.
+To check that it is running, look for `ZZPerf loaded` in `BepInEx\LogOutput.log`, or set `LogStats = true` to get a `stats` line every 30 seconds.
 
 ## Turning it off
 
